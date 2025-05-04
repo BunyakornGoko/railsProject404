@@ -7,8 +7,15 @@ pipeline {
 
   stages {
     stage('Build') {
-      steps {
-        echo 'Building...'
+            steps {
+          // สร้าง Docker image
+          sh """
+              docker build --rm \
+              -f Dockerfile \
+              -t registry-1.docker.io/bunyakorngoko/prac-jenkins \
+              -t registry-1.docker.io/bunyakorngoko/prac-jenkins:${env.BUILD_NUMBER} \
+              .
+          """
       }
     }
 
