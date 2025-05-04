@@ -1,20 +1,37 @@
+pipeline {
+  agent any
 
-node {
-  stage('Build') {
-    echo 'Building...'
+  environment {
+    MY_VARIABLE = "Hello, World!"
   }
 
-  stage('Test') {
-    echo 'Running tests...'
+  stages {
+    stage('Build') {
+      steps {
+        echo 'Building...'
+      }
+    }
+
+    stage('Test') {
+      steps {
+        echo 'Running tests...'
+      }
+    }
+
+    stage('Deploy') {
+      steps {
+        echo 'Deploying...'
+      }
+    }
   }
 
-  stage('Deploy') {
-    echo 'Deploying...'
-  }
+  post {
+    success {
+      echo 'Pipeline executed successfully!'
+    }
 
-  if (currentBuild.result == 'SUCCESS') {
-    echo 'Pipeline executed successfully!'
-  } else {
-    echo 'Pipeline execution failed!'
+    failure {
+      echo 'Pipeline execution failed!'
+    }
   }
 }
