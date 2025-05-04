@@ -21,7 +21,9 @@ pipeline {
 
     stage('Deploy') {
       steps {
+        sh """
         docker run -d -p 3001:80 --name goko404-service registry-1.docker.io/bunyakorngoko/prac-jenkins:${env.BUILD_NUMBER}
+        """
       }
     }
   }
