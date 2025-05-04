@@ -1,4 +1,3 @@
-// Jenkinsfile-Integration
 pipeline {
     agent any
     stages {
@@ -6,7 +5,6 @@ pipeline {
             steps { 
                 sh 'ls -l'
                 sh 'ls -l'
-
             }
         }
         stage('Build Docker Image') {
@@ -24,16 +22,14 @@ pipeline {
         stage('Push') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'DOCKER_CREDENTIALS', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                sh """
-                echo $DOCKER_USERNAME
-               echo $DOCKER_PASSWORD
-              docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD registry.hub.docker.com
-               docker push registry-1.docker.io/bunyakorngoko/prac-jenkins:${env.BUILD_NUMBER}
-                """
+                    sh """
+                        echo \$DOCKER_USERNAME
+                        echo \$DOCKER_PASSWORD | sed 's/./*/g'
+                        docker login registry-1.docker.io -u \$DOCKER_USERNAME -p \$DOCKER_PASSWORD
+                        docker push registry-1.docker.io/bunyakorngoko/prac-jenkins:${env.BUILD_NUMBER}
+                    """
                 }
             }
-
         }
-
     }
 }
