@@ -25,7 +25,7 @@ pipeline {
                     sh """
                         echo \$DOCKER_USERNAME
                         echo \$DOCKER_PASSWORD | sed 's/./*/g'
-                        docker login docker.io -u \$DOCKER_USERNAME -p \$DOCKER_PASSWORD
+                        echo \$DOCKER_PASSWORD | docker login --username \$DOCKER_USERNAME --password-stdin docker.io
                         docker push registry-1.docker.io/bunyakorngoko/prac-jenkins:${env.BUILD_NUMBER}
                     """
                 }
