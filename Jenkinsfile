@@ -19,26 +19,10 @@ pipeline {
       }
     }
 
-    stage('Test') {
-      steps {
-        echo 'Running tests...'
-      }
-    }
-
     stage('Deploy') {
       steps {
-        echo 'Deploying...'
+        docker run -d -p 3001:80 --name goko404-service registry-1.docker.io/bunyakorngoko/prac-jenkins:${env.BUILD_NUMBER}
       }
-    }
-  }
-
-  post {
-    success {
-      echo 'Pipeline executed successfully!'
-    }
-
-    failure {
-      echo 'Pipeline execution failed!'
     }
   }
 }
