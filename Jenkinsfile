@@ -27,7 +27,7 @@ pipeline {
                     echo $DOCKER_USERNAME
                    echo $DOCKER_PASSWORD
                  docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD registry.hub.docker.com
-                docker push registry-1.docker.io/bunyakorn/prac-jenkins:${env.BUILD_NUMBER}
+                docker push registry-1.docker.io/bunyakorngoko/prac-jenkins:${env.BUILD_NUMBER}
         """
                 }
             }
